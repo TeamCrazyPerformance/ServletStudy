@@ -1,6 +1,6 @@
 /build/
 
-# Created by https://www.gitignore.io/api/eclipse
+# Created by https://www.gitignore.io/api/java,eclipse
 
 ### Eclipse ###
 
@@ -55,8 +55,6 @@ local.properties
 # Code Recommenders
 .recommenders/
 
-
-# Created by https://www.gitignore.io/api/java
 
 ### Java ###
 *.class

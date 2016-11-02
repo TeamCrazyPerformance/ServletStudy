@@ -1,17 +1,20 @@
 package kr.kuvh.tcpstudy.login.model;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.ServletContext;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 import kr.kuvh.tcpstudy.login.Const.errorList;
 import kr.kuvh.tcpstudy.login.Util;
@@ -29,9 +32,7 @@ public class Member {
 		mContext = context;
 		
 		absolutePath = mContext.getRealPath("/");
-		
-		System.out.println(absolutePath);
-		
+				
 		if(!isDatabaseExist())
 			createDatabase();
 	}
@@ -46,14 +47,14 @@ public class Member {
 		File dir = new File(absolutePath, "database");
 		if (!dir.exists())
 			dir.mkdir();
-		
-		JSONArray arr = new JSONArray();
-		
+				
 		try {
-			FileWriter dbFile = new FileWriter(absoluteDBPath);
-			dbFile.write(arr.toJSONString());
+			File file = new File(absoluteDBPath);
+			file.createNewFile();
 			
-			dbFile.flush();
+			BufferedWriter dbFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(absoluteDBPath), "UTF8"));
+			dbFile.write("[]");
+			
 			dbFile.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -62,23 +63,38 @@ public class Member {
 	}
 	
 	public errorList checkUser(String id, String password) {
-		JSONParser parser = new JSONParser();
 		Util util = new Util();
 		
 		try {
-			Object jsonDB = parser.parse(new FileReader(absoluteDBPath));
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(absoluteDBPath),"UTF8"));
+			Pattern pattern = Pattern.compile("\\{\"id\":\"(.*?)\",\"name\":\"(.*?)\",\"password\":\"(.*?)\"\\}");
+			Matcher matcher;
 			
-			JSONArray arr = (JSONArray)jsonDB;
+			String userData;
 			
-			int idx = util.findJSONValueByKey(arr, "id", id);
-			if (idx == -1)
+			ArrayList<User> list = new ArrayList<User>();
+			
+			while ((userData = reader.readLine()) != null) {
+				matcher = pattern.matcher(userData);
+				
+				if(matcher.find()) {
+					User user = new User(matcher.group(1), matcher.group(2), matcher.group(3));
+					list.add(user);
+				}
+			}
+			
+			int idx = getUserIndex(list, id);
+			
+			if (idx == -1) {
 				return errorList.NOT_FOUND_USER;
+			}
 			
-			JSONObject obj = (JSONObject)arr.get(idx);
-			if (!util.encryptPassword(password).equals(obj.get("password").toString()))
+			User mUser = list.get(idx);
+			
+			if (!util.encryptPassword(password).equals(mUser.getPassword()))
 				return errorList.NOT_VALID_PASSWORD;
 			
-			username = obj.get("name").toString();
+			username = mUser.getUsername();
 			
 			return errorList.SUCCESS;			
 			
@@ -88,11 +104,75 @@ public class Member {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (ParseException e) {
+		}
+		return errorList.UNKNOWN;
+	}
+	
+	public errorList insertUser(String id, String password, String username) {
+		Util util = new Util();
+		
+		try {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(absoluteDBPath),"UTF8"));
+			Pattern pattern = Pattern.compile("\\{\"id\":\"(.*?)\",\"name\":\"(.*?)\",\"password\":\"(.*?)\"\\}");
+			Matcher matcher;
+			
+			String userData;
+			
+			ArrayList<User> list = new ArrayList<User>();
+			
+			while ((userData = reader.readLine()) != null) {
+				matcher = pattern.matcher(userData);
+				
+				if(matcher.find()) {
+					User user = new User(matcher.group(1), matcher.group(2), matcher.group(3));
+					list.add(user);
+				}
+			}
+			
+			if(getUserIndex(list, id) != -1) {
+				return errorList.ALREADY_USER_EXIST;
+			}
+			
+			BufferedWriter dbFile = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(absoluteDBPath), "UTF8"));
+			
+			StringBuilder builder = new StringBuilder("[");
+			builder.append(System.getProperty("line.separator"));
+			
+			Iterator<User> iterator = list.iterator();
+			while(iterator.hasNext()) {
+				builder.append(iterator.next().toString());
+				builder.append(",");
+				builder.append(System.getProperty("line.separator"));				
+			}
+			
+			User user = new User(id, username, util.encryptPassword(password));
+			
+			builder.append(user.toString());
+			builder.append(System.getProperty("line.separator"));
+			builder.append("]");
+			
+			dbFile.write(builder.toString());
+			
+			dbFile.close();
+			
+			return errorList.SUCCESS;
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return errorList.UNKNOWN;
+		return errorList.UNKNOWN;	
+	}
+	
+	private int getUserIndex(ArrayList<User> arr, String id) {
+		for(int i = 0; i < arr.size(); i++) {
+			if(arr.get(i).getID().equals(id))
+				return i;
+		}
+		return -1;
 	}
 	
 	public String getUserName() {

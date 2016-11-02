@@ -5,18 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Formatter;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-
 public class Util {
-	public int findJSONValueByKey(JSONArray arr, String key, String value) {
-		for(int i = 0; i < arr.size(); i++) {
-			JSONObject obj = (JSONObject)arr.get(i);
-			if(obj.get(key).equals(value))
-				return i;
-		}
-		return -1;
-	}
 	
 	public String encryptPassword(String password)
 	{

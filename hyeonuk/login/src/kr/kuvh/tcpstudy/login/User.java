@@ -1,4 +1,4 @@
-package kr.kuvh.tcpstudy.login.model;
+package kr.kuvh.tcpstudy.login;
 
 public class User {
 	private String id;

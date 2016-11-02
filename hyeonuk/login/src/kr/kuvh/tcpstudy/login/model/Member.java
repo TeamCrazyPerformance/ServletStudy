@@ -17,6 +17,7 @@ import java.util.regex.Pattern;
 import javax.servlet.ServletContext;
 
 import kr.kuvh.tcpstudy.login.Const.errorList;
+import kr.kuvh.tcpstudy.login.User;
 import kr.kuvh.tcpstudy.login.Util;
 
 public class Member {

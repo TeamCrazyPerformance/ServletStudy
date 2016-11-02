@@ -8,13 +8,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.kuvh.tcpstudy.login.Util;
 import kr.kuvh.tcpstudy.login.Const.errorList;
 import kr.kuvh.tcpstudy.login.model.Member;
 
 public class LoginController extends HttpServlet {
 		
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
-		//throws IOException, ServletException
+		Util util = new Util(getServletContext());
 		
 		//로그인 데이터 받아옴
 		String id = req.getParameter("id");
@@ -33,6 +34,7 @@ public class LoginController extends HttpServlet {
 		}
 		
 		try {
+			util.logErrorLogin(id);
 			req.setAttribute("errormsg", result);
 			view.forward(req, res);
 		} catch (ServletException e) {

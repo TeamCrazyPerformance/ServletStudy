@@ -64,7 +64,7 @@ public class Member {
 	}
 	
 	public errorList checkUser(String id, String password) {
-		Util util = new Util();
+		Util util = new Util(mContext);
 		
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(absoluteDBPath),"UTF8"));
@@ -110,7 +110,7 @@ public class Member {
 	}
 	
 	public errorList insertUser(String id, String password, String username) {
-		Util util = new Util();
+		Util util = new Util(mContext);
 		
 		try {
 			BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(absoluteDBPath),"UTF8"));
@@ -131,6 +131,7 @@ public class Member {
 			}
 			
 			if(getUserIndex(list, id) != -1) {
+				util.logErrorSignUp("아이디중복");
 				return errorList.ALREADY_USER_EXIST;
 			}
 			
@@ -165,6 +166,7 @@ public class Member {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		util.logErrorSignUp("알 수 없는 오류");
 		return errorList.UNKNOWN;	
 	}
 	

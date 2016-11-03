@@ -1,5 +1,6 @@
 package com.tcp.study.controller;
 
+import com.tcp.study.User;
 import com.tcp.study.model.LoginModel;
 
 import javax.servlet.RequestDispatcher;
@@ -16,14 +17,18 @@ import java.util.List;
  */
 public class LoginController extends HttpServlet {
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
-        res.setContentType("text/html");
-        PrintWriter out = res.getWriter();
-        out.println("Beer Selection Advice<br>");
-        String c = req.getParameter("color");
-        List<String> beerList = new LoginModel().getMembers(c);
+        res.setContentType("text/html; charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+//        PrintWriter out = res.getWriter();
 
-        req.setAttribute("styles", beerList);
-        RequestDispatcher view = req.getRequestDispatcher("result.jsp");
+        String email = req.getParameter("email");
+        String password = req.getParameter("password");
+//        List<String> tempList = (List<String>) getServletContext().getAttribute("tempList");
+
+        User user = new User(email, password, "이송열");
+        req.setAttribute("reqUser", user);
+
+        RequestDispatcher view = req.getRequestDispatcher("loginResult.jsp");
         view.forward(req, res);
     }
 }

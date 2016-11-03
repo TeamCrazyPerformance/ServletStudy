@@ -22,11 +22,11 @@
         <div class="main">
             <h1 class="text-center">회원가입 하는 페이지</h1><br/>
             <form method="post" action="SignupController.do">
-                <input type="email" class="form-control" id="inputEmail" placeholder="이메일"><br/>
-                <input type="password" class="form-control" id="inputPasswd" placeholder="비밀번호"><br/>
-                <input type="text" class="form-control" id="inputName" placeholder="이름"><br/>
+                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="이메일"><br/>
+                <input type="password" class="form-control" id="inputPasswd" name="password" placeholder="비밀번호"><br/>
+                <input type="text" class="form-control" id="inputName" name="name" placeholder="이름"><br/>
                 <input type="submit" class="btn btn-primary btn-lg btn-block" value="가입">
-                <input type="button" class="btn btn-default btn-lg btn-block" value="취소" onclick="location.href='login.html'"> 
+                <input type="reset" class="btn btn-default btn-lg btn-block" value="취소" onclick="location.href='login.html'"> 
             </form>
         </div>
     </div>

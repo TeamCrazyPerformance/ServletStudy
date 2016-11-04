@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        div.main {
+            display:block;
+            width:500px;
+            padding-top: 100px;
+            margin:0 auto;
+            position: relative; 
+        }
+    </style>
+    <title>login</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div>
+        <div class="main">
+            <h1 class="text-center">로그인 하는 사이트</h1><br/>
+            <form method="post" action="LoginController.do">
+                <input type="email" class="form-control" id="inputEmail" name="email" placeholder="이메일"><br/>
+                <input type="password" class="form-control" id="inputPasswd" name="password" placeholder="비밀번호"><br/>
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="로그인">
+            </form>
+            <hr/>
+            <a target="_parent" href="signup.html" id="toSignup"><p class="text-center">회원가입</p></a>
+        </div>
+    </div>
+</body>
+</html>

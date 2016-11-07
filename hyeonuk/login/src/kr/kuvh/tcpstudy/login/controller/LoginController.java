@@ -3,16 +3,26 @@ package kr.kuvh.tcpstudy.login.controller;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.kuvh.tcpstudy.login.JsonDBConnection;
 import kr.kuvh.tcpstudy.login.Util;
 import kr.kuvh.tcpstudy.login.Const.errorList;
 import kr.kuvh.tcpstudy.login.model.Member;
 
 public class LoginController extends HttpServlet {
+	
+	public void init(ServletConfig servletConfig) throws ServletException {
+		super.init(servletConfig);
+		
+		System.out.println("LOG: [LoginController] init...");	
+		
+		JsonDBConnection.getInstance(getServletContext());
+	}
 		
 	public void doPost(HttpServletRequest req, HttpServletResponse res) {
 		Util util = new Util(getServletContext());

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tcp.study.listener.JsonListener;
 import com.tcp.study.model.SignUpModel;
+import com.tcp.study.util.InitData;
 import com.tcp.study.util.UserInfo;
 
 public class SignUpController extends HttpServlet {
@@ -20,6 +21,14 @@ public class SignUpController extends HttpServlet {
 	//1. id, name, password get
 	//2. model에 회원정보 전달, 성공여부 get
 	//3. 성공여부에 따라 jsp결과창 변경 (view로 전달해서 처리)
+	
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
+		InitData data = InitData.getData();
+	}
+	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -27,6 +36,7 @@ public class SignUpController extends HttpServlet {
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		String password = req.getParameter("password");
+//		InitData.getData();
 //		System.out.println(id);
 //		System.out.println(name);
 //		System.out.println(password);

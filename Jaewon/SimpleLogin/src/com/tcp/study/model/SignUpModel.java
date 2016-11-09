@@ -11,6 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import com.tcp.study.listener.JsonListener;
+import com.tcp.study.util.InitData;
 import com.tcp.study.util.UserInfo;
 
 public class SignUpModel {
@@ -21,7 +22,7 @@ public class SignUpModel {
 	
 	public int signUp(UserInfo paramInfo) {
 		UserInfo info = new UserInfo();
-		List<UserInfo> infoList = JsonListener.getUserInfo();
+		List<UserInfo> infoList = InitData.getData().getList();
 		int flag; //0 = 성공, 1 = 아이디 미입력, 2 = 아아디 중복, 3 = 이름 미입력, 4 = 비밀번호 미입력
 		
 		paramInfo = this.checkNull(paramInfo);

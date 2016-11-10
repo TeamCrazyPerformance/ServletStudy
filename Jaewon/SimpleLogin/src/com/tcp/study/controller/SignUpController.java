@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tcp.study.listener.JsonListener;
 import com.tcp.study.model.SignUpModel;
-import com.tcp.study.util.InitData;
+import com.tcp.study.util.UserData;
 import com.tcp.study.util.UserInfo;
 
 public class SignUpController extends HttpServlet {
@@ -26,7 +26,7 @@ public class SignUpController extends HttpServlet {
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
-		InitData data = InitData.getData();
+		UserData.getData();
 	}
 	
 	@Override

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tcp.study.model.LoginModel;
-import com.tcp.study.util.InitData;
+import com.tcp.study.util.UserData;
 
 public class LoginController extends HttpServlet {
 
@@ -16,8 +16,7 @@ public class LoginController extends HttpServlet {
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
-
-		InitData data = InitData.getData();
+		UserData.getData();
 	}
 	
 	@Override

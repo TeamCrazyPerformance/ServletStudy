@@ -36,10 +36,6 @@ public class SignUpController extends HttpServlet {
 		String id = req.getParameter("id");
 		String name = req.getParameter("name");
 		String password = req.getParameter("password");
-//		InitData.getData();
-//		System.out.println(id);
-//		System.out.println(name);
-//		System.out.println(password);
 		UserInfo userInfo = new UserInfo();
 		userInfo.setId(id);
 		userInfo.setName(name);

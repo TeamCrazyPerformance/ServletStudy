@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.tcp.study.model.LoginCheckModel;
 
-public class LoginCheck extends HttpServlet {
+public class LoginController extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
 		
 	}

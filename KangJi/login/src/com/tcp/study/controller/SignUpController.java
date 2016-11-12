@@ -19,6 +19,9 @@ public class SignUpController extends HttpServlet {
 		
 		if (check.signup(id, password, name) == false){
 			
-		};
+		}
+		else{
+			
+		}
 	}
 }

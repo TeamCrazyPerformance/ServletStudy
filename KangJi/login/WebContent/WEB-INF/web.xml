@@ -30,4 +30,5 @@
   	<servlet-name>signup</servlet-name>
   	<url-pattern>/signup.do</url-pattern>
   </servlet-mapping>
+  
 </web-app>

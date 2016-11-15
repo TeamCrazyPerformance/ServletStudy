@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.tcp.study.listener.JsonListener;
 import com.tcp.study.model.SignUpModel;
 import com.tcp.study.util.UserData;
 import com.tcp.study.util.UserInfo;

@@ -12,8 +12,6 @@ import java.util.List;
 
 import org.apache.tomcat.jni.File;
 
-import com.tcp.study.listener.JsonListener;
-import com.tcp.study.util.LogManager;
 import com.tcp.study.util.UserData;
 import com.tcp.study.util.UserInfo;
 
@@ -26,7 +24,9 @@ public class SignUpModel {
 	public int signUp(UserInfo paramInfo) { //회원가입 및 회원정보 추가(setUserInfo call)
 		UserInfo info = new UserInfo();
 		List<UserInfo> infoList = UserData.getData().getList();
-		int flag; //0 = 성공, 1 = 아이디 미입력, 2 = 아아디 중복, 3 = 이름 미입력, 4 = 비밀번호 미입력
+		int flag; 
+		//0 = 성공, 1 = 존재하지 않는 아이디, 2 = 틀린 비밀번호 - 로그인
+		//0 = 성공, 5 = 아이디 미입력, 6 = 아아디 중복, 7 = 이름 미입력, 8 = 비밀번호 미입력 - 회원가입
 		
 		paramInfo = this.checkNull(paramInfo);
 		
@@ -35,22 +35,22 @@ public class SignUpModel {
 			info = i.next();
 			if(paramInfo.getId()==null){
 				flag = 1;
-				LogManager.setLog(flag);
+				setLog(flag);
 				return flag;//아이디 미입력
 			}
 			if(info.getId().equals(paramInfo.getId())){
 				flag = 2;
-				LogManager.setLog(flag);
+				setLog(flag);
 				return flag;//아이디 중복
 			}
 			if(paramInfo.getName()==null){
 				flag = 3;
-				LogManager.setLog(flag);
+				setLog(flag);
 				return flag;//이름 미입력
 			}
 			if(paramInfo.getPassword()==null){
 				flag = 4;
-				LogManager.setLog(flag);
+				setLog(flag);
 				return flag;//비밀번호 미입력
 			}
 		}
@@ -88,6 +88,61 @@ public class SignUpModel {
 			}
 			newInfo = new String("{\"id\":\""+info.getId()+"\",\"name\":\""+info.getName()+"\",\"password\":\""+info.getPassword()+"\"}");
 			write.write(newInfo);
+			write.newLine();
+			write.write("]");
+			write.close();
+			read.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void setLog(int flag){
+		LocalDateTime time = LocalDateTime.now();
+		String path = new String("E:\\Github\\ServletStudy\\Jaewon\\SimpleLogin\\resource\\log.txt");
+		String desc = new String("회원가입 실패");
+		String error = new String("sign up");
+		String message = null;
+		String logList[] = new String[1024];
+		String buffer=null;
+		String newLog = null;
+		switch(flag){
+		case 1:
+			message = new String("아이디 미입력");
+			break;	
+		case 2:
+			message = new String("아이디 중복");
+			break;		
+		case 3:
+			message = new String("이름 미입력");
+			break;			
+		case 4:
+			message = new String("비밀번호 미입력");
+			break;
+		}
+		try {
+			BufferedReader read = new BufferedReader(new FileReader(path));
+			int i=0;
+			while(true){
+				buffer = read.readLine();
+				if(buffer.equals("]")){
+					i--;
+					logList[i] = logList[i].concat(",");
+					break;
+				}
+				logList[i++] = new String(buffer);
+			}
+			BufferedWriter write = new BufferedWriter(new FileWriter(path));
+			int j=0;
+			while(true){
+				write.write(logList[j++]);
+				write.newLine();
+				if(logList[j]==null)
+					break;
+			}
+			newLog = new String("{\"error\":\""+error+"\",\"desc\":\""+desc+"\",\"message\":\""+message+"\",\"time\":\""+time.toString()+"\"}");
+			write.write(newLog);
 			write.newLine();
 			write.write("]");
 			write.close();

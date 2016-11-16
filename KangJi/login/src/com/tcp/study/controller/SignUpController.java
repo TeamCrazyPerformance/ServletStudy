@@ -2,6 +2,7 @@ package com.tcp.study.controller;
 
 import java.io.IOException;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -17,11 +18,13 @@ public class SignUpController extends HttpServlet {
 		String password = req.getParameter("password");
 		String name = req.getParameter("name");
 		
-		if (check.signup(id, password, name) == false){
-			
+		/*
+		if (check.signup(id, password, name) != false){
+			//LoginPage.html 社鉢照.......
 		}
 		else{
-			
+			//SignUpFail.hmtl 社発!!!!ばばばばばばばばばばばばばばばばばばばばばばばばばばば
 		}
+		*/
 	}
 }

@@ -1,5 +1,6 @@
 <%@ page import="com.tcp.study.model.LoginModel" %>
-<%@ page import="com.tcp.study.User" %><%--
+<%@ page import="com.tcp.study.VO.User" %>
+<%@ page import="com.tcp.study.JsonParser" %><%--
   Created by IntelliJ IDEA.
   User: Sonkrat
   Date: 2016. 11. 3.
@@ -31,8 +32,10 @@
             <%
                 request.setCharacterEncoding("UTF-8");
                 User reqUser = (User)request.getAttribute("reqUser");
+                LoginModel loginModel = new LoginModel();
+                reqUser.setName(loginModel.isUser(reqUser.getEmail(), reqUser.getPassword()));
 
-                if (new LoginModel().isUser(reqUser.getEmail(), reqUser.getPassword()))
+                if (reqUser.getName() != "False")
                     out.println("<a target=\"_parent\" href=\"login.html\"><h1 class=\"text-center\">" + reqUser.getName() + "님 안녕하세요!" + "</h1></a><br/>");
                 else
                     out.println("<a target=\"_parent\" href=\"login.html\"><h1 class=\"text-center\">" + "로그인 실패.." + "</h1></a><br/>");

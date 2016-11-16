@@ -1,4 +1,4 @@
-package com.tcp.study;
+package com.tcp.study.VO;
 
 /**
  * Created by Sonkrat on 2016. 11. 3..

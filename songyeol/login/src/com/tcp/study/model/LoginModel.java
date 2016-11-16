@@ -1,5 +1,9 @@
 package com.tcp.study.model;
 
+import com.tcp.study.JsonParser;
+import com.tcp.study.VO.User;
+import com.tcp.study.controller.LoginController;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,8 +12,12 @@ import java.util.List;
  */
 
 public class LoginModel {
-    List<String> userList = new ArrayList<>();
-    public boolean isUser(String email, String password) {
-        return email.equals("soye73@naver.com") && password.equals("yeol4901");
+
+    public String isUser(String email, String password) {
+        String state = "False";
+        for (User user : JsonParser.getInstance().getUserList())
+            if (email.equals(user.getEmail()) && password.equals(user.getPassword()))
+                return user.getName();
+        return state;
     }
 }

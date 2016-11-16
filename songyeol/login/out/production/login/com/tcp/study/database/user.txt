@@ -1,0 +1,4 @@
+[
+{"email":"genie@naver.com","password":"password1","name":"Youn Ji Soo"},
+{"email":"bonos2@naver.com","password":"password2","name":"Jang Ha Lim"}
+]

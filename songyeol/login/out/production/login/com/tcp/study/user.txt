@@ -1,4 +1,0 @@
-[
-{"id":"genie","password":"password1","name":"Youn Ji Soo"},
-{"id":"bonos2","password":"password2","name":"Jang Ha Lim"}
-]

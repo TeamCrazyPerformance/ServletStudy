@@ -1,4 +1,4 @@
-<%@ page import="com.tcp.study.User" %>
+<%@ page import="com.tcp.study.VO.User" %>
 <%@ page import="java.util.List" %><%--
   Created by IntelliJ IDEA.
   User: Sonkrat

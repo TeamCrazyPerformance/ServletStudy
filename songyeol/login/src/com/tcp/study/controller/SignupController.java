@@ -1,7 +1,6 @@
 package com.tcp.study.controller;
 
-import com.tcp.study.User;
-import com.tcp.study.model.LoginModel;
+import com.tcp.study.VO.User;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -32,6 +31,7 @@ public class SignupController extends HttpServlet {
 
         RequestDispatcher view = req.getRequestDispatcher("signupResult.jsp");
         view.forward(req, res);
+
     }
 }
 

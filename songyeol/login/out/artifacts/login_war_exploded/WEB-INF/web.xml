@@ -15,6 +15,16 @@
     </welcome-file-list>
 
     <servlet>
+        <servlet-name>File</servlet-name>
+        <servlet-class>com.tcp.study.controller.FileController</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>File</servlet-name>
+        <url-pattern>/File.do</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>Login</servlet-name>
         <servlet-class>com.tcp.study.controller.LoginController</servlet-class>
     </servlet>

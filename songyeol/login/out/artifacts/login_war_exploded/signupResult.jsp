@@ -1,5 +1,6 @@
 <%@ page import="com.tcp.study.VO.User" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="com.tcp.study.JsonParser" %><%--
   Created by IntelliJ IDEA.
   User: Sonkrat
   Date: 2016. 11. 3.
@@ -32,22 +33,19 @@
             request.setCharacterEncoding("UTF-8");
             int count = 0;
             User reqUser = (User)request.getAttribute("reqUser");
-//            List<User> userList = (List<User>)request.getAttribute("userList");
 
-//            for (User user : userList) {
-//                if (reqUser.getEmail() == user.getEmail() || reqUser.getEmail() == null || reqUser.getPassword() == null || reqUser.getName() == null) {
-                if (reqUser.getEmail() == "soye73@naver.com") {
+            for (User user : JsonParser.getInstance().getUserList()) {
+                if (reqUser.getEmail().equals(user.getEmail())) {
                     out.println("<a target=\"_parent\" href=\"signup.html\"><h1 class=\"text-center\">" + "이미 사용중이거나 탈퇴한 아이디입니다." + "</h1></a><br/>");
                     count++;
-//                    break;
+                    break;
                 }
-                if (reqUser.getEmail() == "" || reqUser.getPassword() == "" || reqUser.getName() == "") {
+                if (reqUser.getEmail().equals("") || reqUser.getPassword().equals("") || reqUser.getName().equals("")) {
                     out.println("<a target=\"_parent\" href=\"signup.html\"><h1 class=\"text-center\">" + "입력하신 정보를 다시 확인해주세요." + "</h1></a><br/>");
                     count++;
-//                    break;
+                    break;
                 }
-
-//            }
+            }
 
             if (count == 0)
                 out.println("<a target=\"_parent\" href=\"signup.html\"><h1 class=\"text-center\">" + reqUser.getName() + "님 반갑습니다!" + "</h1></a><br/>");

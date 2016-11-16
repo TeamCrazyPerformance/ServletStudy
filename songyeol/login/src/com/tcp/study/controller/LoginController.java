@@ -16,21 +16,6 @@ import java.util.List;
  * Created by Sonkrat on 2016. 11. 2..
  */
 public class LoginController extends HttpServlet {
-    public static List<User> userList;
-
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        try {
-            // 상대경로로 수정해야함.
-            FileReader fileReader = new FileReader("/Users/Sonkrat/ServletStudy/songyeol/login/src/com/tcp/study/database/user.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
-            userList = JsonParser.getInstance().getParsed(bufferedReader);
-            return;
-        }
-        catch (FileNotFoundException ignored) { }   // no saved state
-        catch (IOException ignored) { }             // problem during read
-        catch (NumberFormatException ignored) { }   // corrupt saved state
-    }
 
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException, ServletException {
         res.setContentType("text/html; charset=UTF-8");

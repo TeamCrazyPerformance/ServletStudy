@@ -1,0 +1,4 @@
+[
+{"id":"genie","name":"Youn Ji Soo","password":"password1"},
+{"id":"bonos2","name":"Jang Ha Lim","password":"password2"}
+]

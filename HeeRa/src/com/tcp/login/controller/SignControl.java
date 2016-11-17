@@ -40,13 +40,10 @@ public class SignControl extends HttpServlet {
 		String pw = req.getParameter("pw");	
 		String name = req.getParameter("name");
 
-		System.out.println(id);
-
 		result = loginModel.isUsedID(id) || loginModel.isEmptyTextField(name, id, pw);
-		System.out.println(result);
 
-		if (result == false) {
-			System.out.println("com result false");
+		if ( !result ) {
+			System.out.println("false - 회원가입 성공 ");
 			loginModel.appendList(id, pw, name);
 			jsonParser.jsonWriter(id, pw, name);
 		}

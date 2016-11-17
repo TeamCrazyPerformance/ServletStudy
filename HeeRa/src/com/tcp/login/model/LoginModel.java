@@ -58,23 +58,23 @@ public class LoginModel {
 		if (list.containsKey(id) == true && list.get(id).get("PW").equals(pw)) {
 			return true;		
 		} else {
-			jsonParser.logWrite("Login", id, date.toLocaleString());
+			jsonParser.logWrite("login", id, date.toLocaleString());
 			return false;
 		}
 	}
 
 	/**
 	 * 회원 가입시 해당 id가 존재하는 지 확인하는 method
-	 * id가 있으면 false, 없으면 true를 반환한다.
+	 * id가 있으면 true, 없으면 false를 반환한다.
 	 * @param id
 	 * @return boolean
 	 */
 	public boolean isUsedID (String id) {
-		if (list.containsKey(id) == true) {
-			return true;
-		} else {
+		if (list.containsKey(id)) {
 			String mesg = reasonError(1);
 			jsonParser.logWrite("sign up", mesg, date.toLocaleString());
+			return true;
+		} else {
 			return false;
 		}
 	}
@@ -87,22 +87,22 @@ public class LoginModel {
 	 * @param pw
 	 * @return
 	 */
-	@SuppressWarnings("deprecation")
 	public boolean isEmptyTextField(String name, String id, String pw) {
 
-		if (name==null || id==null || pw ==null) {
+
+		if (name.equals("") || id.equals("") || pw.equals("")) {
 			String mesg;
-			if (name == null) {
+			if (name.equals("")) {
 				mesg = reasonError(3);
-			} else if (id == null) {
+			} else if (id.equals("")) {
 				mesg = reasonError(2);
 			} else {
 				mesg = reasonError(4);
 			}
 
 			jsonParser.logWrite("sign up", mesg, date.toLocaleString());
-
 			return true;
+			
 		} else {
 			return false;
 		}

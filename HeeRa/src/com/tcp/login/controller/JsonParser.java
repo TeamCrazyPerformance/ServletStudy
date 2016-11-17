@@ -105,6 +105,7 @@ public class JsonParser {
 				str = "\r\n" + "{\"error\":\"" + err + "\",\"message\":\"" + mesg + "\",\"time\":\"" + time + "\"}," ;
 				break;
 			default :
+				str = "error";
 				break;
 			} 
 			bw.write(str);

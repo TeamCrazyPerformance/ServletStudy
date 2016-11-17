@@ -41,13 +41,13 @@ public class UserDao {
 		}
 	}
 	
-	public boolean findById(String id) {
+	public UserDto findById(String id) {
 		for (int i=0; i<this.users.size(); i++) {
 			if (this.users.get(i).getId().equals(id)) {
-				return true;
+				return this.users.get(i);
 			}
 		}
-		return false;
+		return null;
 	}
 	
 	public boolean findByPw(String pw) {

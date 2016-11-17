@@ -13,19 +13,19 @@ public class LoginCheckModel {
 		String path = "C:/Users/kjhmd/Desktop/ServletStudy/KangJi/login/Log.txt";
 		Date d = new Date();
 		String date = d.toString();
-		if(UserDao.getInst().findById(id) == true){
-			if(UserDao.getInst().findByPw(password) == true){
+		if(UserDao.getInst().findById(id).getId().equals(id) == true){
+			if(UserDao.getInst().findById(id).getPw().equals(password) == true){
 				return true;
 			}
 			FileWriter fw = new FileWriter(path, true);
-			String reason = "{\"error\":\"password\",\"desc\":\"Login Fail\",\"id\":\"" + id + "\",\"time\":\"" + date +"\"}," + "\n";
+			String reason = "{\"ERROR\":\"password\",\"DESC\":\"LOGIN_FAIL\",\"ID\":\"" + id + "\",\"TIME\":\"" + date +"\"}," + "\n";
 			fw.write(reason);
 			fw.close();
 			return false;
 		}
 		else {
 			FileWriter fw = new FileWriter(path, true);
-			String reason = "{\"error\":\"login\",\"desc\":\"Login Fail\",\"Try id\":\"" + id + "\",\"time\":\"" + date +"\"}," + "\n";
+			String reason = "{\"ERROR\":\"LOGIN\",\"DESC\":\"LOGIN_FAIL\",\"TRY_ID\":\"" + id + "\",\"TIME\":\"" + date +"\"}," + "\n";
 			fw.write(reason);
 			fw.close();
 			return false;

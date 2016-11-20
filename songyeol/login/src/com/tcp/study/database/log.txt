@@ -1,2 +1,6 @@
 [
+{"error":"login","desc":"로그인실패","email":"","time":"Sun Nov 20 20:51:49 KST 2016"},
+{"error":"login","desc":"로그인실패","email":"soye73@naver.com","time":"Sun Nov 20 20:51:52 KST 2016"},
+{"error":"signup","desc":"회원가입 실패","message":"이름미입력/이메일중복/","time":"Sun Nov 20 20:52:06 KST 2016"},
+{"error":"signup","desc":"회원가입 실패","message":"이름미입력/","time":"Sun Nov 20 20:52:22 KST 2016"}
 ]

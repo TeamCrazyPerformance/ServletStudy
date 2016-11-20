@@ -1,5 +1,9 @@
 <%@ page import="com.tcp.study.model.LoginModel" %>
-<%@ page import="com.tcp.study.VO.User" %> <%--
+<%@ page import="com.tcp.study.VO.User" %>
+<%@ page import="java.util.Map" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.Date" %>
+<%@ page import="com.tcp.study.JsonParser" %> <%--
   Created by IntelliJ IDEA.
   User: Sonkrat
   Date: 2016. 11. 3.
@@ -34,10 +38,18 @@
 
                 if (reqUser.getName() != "False")
                     out.println("<a target=\"_parent\" href=\"login.html\"><h1 class=\"text-center\">" + reqUser.getName() + "님 안녕하세요!" + "</h1></a><br/>");
-                else
+                else {
+                    Map<String, String> log = new HashMap();
+                    log.put("error", "login");
+                    log.put("desc", "로그인실패");
+                    log.put("email", reqUser.getEmail());
+                    log.put("time", new Date().toString());
+
+                    JsonParser.getInstance().toParsingLog(log);
                     out.println("<a target=\"_parent\" href=\"login.html\"><h1 class=\"text-center\">" + "로그인 실패.." + "</h1></a><br/>");
+                }
             %>
         </div>
     </div>
 </body>
-</html>
+    </html>

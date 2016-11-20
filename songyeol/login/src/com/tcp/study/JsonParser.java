@@ -5,6 +5,7 @@ import com.tcp.study.VO.User;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Sonkrat on 2016. 11. 9..
@@ -89,14 +90,78 @@ public class JsonParser {
             else {
                 before += ("[" + "\r\n");
             }
-            bufferedReader.close();
 
             // BufferedWriter를 이용해서 덮어쓰기.
             // 상대경로로 수정해야함
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile),"UTF-8"));
             bufferedWriter.write(before + parsing);
-            bufferedWriter.close();
             userList.add(user);
+            result = true;
+        } catch (IOException ignored) {}
+        finally {
+            // 리소스 해제 및 파일 교체
+            try {
+                bufferedReader.close();
+            } catch (IOException ignored) { }
+            try {
+                bufferedWriter.close();
+            } catch (IOException ignored) { }
+
+            if (result) {
+                inputFile.delete();
+                outputFile.renameTo(new File(filePath));
+            }
+        }
+    }
+
+    public void toParsingLog(Map<String, String> log) {
+        String origin;
+        String parsing;
+        String filePath = "/Users/Sonkrat/Git/ServletStudy/songyeol/login/src/com/tcp/study/database/log.txt";
+        File inputFile = new File(filePath);
+        File outputFile = new File(filePath + ".temp");
+        BufferedReader bufferedReader = null;
+        BufferedWriter bufferedWriter = null;
+        boolean result = false; // 성공 여부 판별
+
+        if (log.get("error").equals("login")) {
+            parsing = "{" + "\"error\"" + ":" + "\"" + log.get("error") + "\"" + ","
+                    + "\"desc\"" + ":" + "\"" + log.get("desc") + "\"" + ","
+                    + "\"email\"" + ":" + "\"" + log.get("email") + "\"" + ","
+                    + "\"time\"" + ":" + "\"" + log.get("time") + "\"" + "}"
+                    + "\n" + "]";
+        } else {
+            parsing = "{" + "\"error\"" + ":" + "\"" + log.get("error") + "\"" + ","
+                    + "\"desc\"" + ":" + "\"" + log.get("desc") + "\"" + ","
+                    + "\"message\"" + ":" + "\"" + log.get("message") + "\"" + ","
+                    + "\"time\"" + ":" + "\"" + log.get("time") + "\"" + "}"
+                    + "\n" + "]";
+        }
+
+        try {
+            // 상대경로로 수정해야함
+            bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream(inputFile),"UTF-8"));
+
+            // "]" 이전 데이터 before에 저장.
+            String before ="";
+            if ((origin = bufferedReader.readLine()) == null) {
+                before += ("[" + "\r\n");
+            } else {
+                while(true) {
+                    before += origin;
+
+                    if ((origin = bufferedReader.readLine()).equals("]")) {
+                        before += ",\r\n";
+                        break;
+                    } else
+                        before +=  "\r\n";
+                }
+            }
+
+            // BufferedWriter를 이용해서 덮어쓰기.
+            // 상대경로로 수정해야함
+            bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile),"UTF-8"));
+            bufferedWriter.write(before + parsing);
             result = true;
         } catch (IOException ignored) {}
         finally {

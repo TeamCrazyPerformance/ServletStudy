@@ -1,13 +1,13 @@
 <%@ page import="com.tcp.study.VO.User" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.tcp.study.JsonParser" %><%--
+<%@ page import="com.tcp.study.JsonParser" %> <%--
   Created by IntelliJ IDEA.
   User: Sonkrat
   Date: 2016. 11. 3.
   Time: PM 4:43
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html; charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html lang="ko">
 <head>
     <meta charset="utf-8">
@@ -30,11 +30,11 @@
 <div>
     <div class="main">
         <%
-            request.setCharacterEncoding("UTF-8");
             int count = 0;
             User reqUser = (User)request.getAttribute("reqUser");
+            List<User> userList = JsonParser.getInstance().getUserList();
 
-            for (User user : JsonParser.getInstance().getUserList()) {
+            for (User user : userList) {
                 if (reqUser.getEmail().equals("") || reqUser.getPassword().equals("") || reqUser.getName().equals("")) {
                     out.println("<a target=\"_parent\" href=\"signup.html\"><h1 class=\"text-center\">" + "입력하신 정보를 다시 확인해주세요." + "</h1></a><br/>");
                     count++;
@@ -48,8 +48,17 @@
                 }
             }
 
-            if (count == 0)
-                out.println("<a target=\"_parent\" href=\"signup.html\"><h1 class=\"text-center\">" + reqUser.getName() + "님 반갑습니다!" + "</h1></a><br/>");
+            if (userList.size() == 0) {
+                if (reqUser.getEmail().equals("") || reqUser.getPassword().equals("") || reqUser.getName().equals("")) {
+                    out.println("<a target=\"_parent\" href=\"signup.html\"><h1 class=\"text-center\">" + "입력하신 정보를 다시 확인해주세요." + "</h1></a><br/>");
+                    count++;
+                }
+            }
+
+            if (count == 0) {
+                JsonParser.getInstance().toParsing(reqUser);
+                out.println("<a target=\"_parent\" href=\"login.html\"><h1 class=\"text-center\">" + reqUser.getName() + "님 반갑습니다!" + "</h1></a><br/>");
+            }
         %>
     </div>
 </div>

@@ -2,10 +2,6 @@ package com.tcp.study.model;
 
 import com.tcp.study.JsonParser;
 import com.tcp.study.VO.User;
-import com.tcp.study.controller.LoginController;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sonkrat on 2016. 11. 2..

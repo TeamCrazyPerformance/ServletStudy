@@ -1,4 +1,5 @@
 [
-{"email":"genie@naver.com","password":"password1","name":"Youn Ji Soo"},
-{"email":"bonos2@naver.com","password":"password2","name":"Jang Ha Lim"}
+{"email":"soye73@gmail.com","password":"yeol4901","name":"이송열"},
+{"email":"soye73@naver.com","password":"yeol4901","name":"송여얼"},
+{"email":"genie@naver.com","password":"password1","name":"윤지수"}
 ]

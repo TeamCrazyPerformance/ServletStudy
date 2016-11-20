@@ -6,10 +6,7 @@ import com.tcp.study.VO.User;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 /**
@@ -23,8 +20,7 @@ public class FileController extends HttpServlet {
         super.init(config);
         try {
             // 상대경로로 수정해야함.
-            FileReader fileReader = new FileReader("/Users/Sonkrat/ServletStudy/songyeol/login/src/com/tcp/study/database/user.txt");
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(new FileInputStream("/Users/Sonkrat/Git/ServletStudy/songyeol/login/src/com/tcp/study/database/user.txt"),"UTF8"));
             userList = JsonParser.getInstance().getParsed(bufferedReader);
             return;
         }

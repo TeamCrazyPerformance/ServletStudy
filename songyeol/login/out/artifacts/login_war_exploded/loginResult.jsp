@@ -7,7 +7,7 @@
   Time: PM 4:43
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <html lang="ko">
 <head>
     <meta charset="utf-8">
@@ -30,10 +30,8 @@
     <div>
         <div class="main">
             <%
-                request.setCharacterEncoding("UTF-8");
                 User reqUser = (User)request.getAttribute("reqUser");
-                LoginModel loginModel = new LoginModel();
-                reqUser.setName(loginModel.isUser(reqUser.getEmail(), reqUser.getPassword()));
+                reqUser.setName(new LoginModel().isUser(reqUser.getEmail(), reqUser.getPassword()));
 
                 if (reqUser.getName() != "False")
                     out.println("<a target=\"_parent\" href=\"login.html\"><h1 class=\"text-center\">" + reqUser.getName() + "님 안녕하세요!" + "</h1></a><br/>");

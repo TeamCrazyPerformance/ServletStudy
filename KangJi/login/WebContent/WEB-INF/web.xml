@@ -19,7 +19,6 @@
   	<url-pattern>/login.do</url-pattern>
   </servlet-mapping>
   
-  
   <servlet>
   	<servlet-name>signup</servlet-name>
   	<servlet-class>com.tcp.study.controller.SignUpController</servlet-class>
@@ -28,4 +27,5 @@
   	<servlet-name>signup</servlet-name>
   	<url-pattern>/signup.do</url-pattern>
   </servlet-mapping>
+  
 </web-app>
